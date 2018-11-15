@@ -1,0 +1,28 @@
+### Steps to run the RMI application ###
+
+# Compile the java classes inside package folder
+javac -d . *.java
+
+# Run rmic to create the Server Stub
+rmic rmi.test.Server
+
+# Run the rmiregistry
+rmiregistry &
+
+# Run the Server application
+java rmi.test.Server
+
+# Run the Client application
+java rmi.test.Client
+
+###########################################
+
+# Kill the Server
+lsof -P | grep ':1099' | awk '{print $2}' | xargs kill -9
+
+
+# Run all the commands for the server together
+javac -d . *.java &&
+rmic rmi.test.Server &&
+rmiregistry &
+java rmi.test.Server
